@@ -1,0 +1,32 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        
+        <button class="navbar-brand btn btn-link" (click)="redirect('home')">
+            <i class="fa-solid fa-utensils"></i> Healthy Meals
+        </button>
+        
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <button class="nav-link btn btn-link" (click)="redirect('')">Anasayfa</button>
+                <button class="nav-link btn btn-link" (click)="redirect('packets')">Paketlerimiz</button>
+                <button class="nav-link btn btn-link" (click)="redirect('contact')">İletişim</button>
+            </div>
+        </div>
+
+        
+        <div class="d-flex">
+            <button class="icon-link btn btn-link me-3" (click)="redirect('find')"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="icon-link btn btn-link me-3" (click)="redirect('box')"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button class="icon-link btn btn-link" (click)="redirect('login')"><i class="fa-solid fa-user"></i></button>
+        </div>
+    </div>
+</nav>
