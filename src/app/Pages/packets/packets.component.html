@@ -1,8 +1,17 @@
-<div class="container">
-    <div class="row">
-      <div class="col-12 col-md-4 mb-4" *ngFor="let packet of packets">
-        <app-packet-div [packet]="packet"></app-packet-div>
-      </div>
+<div class="packet-container">
+  <div *ngFor="let packet of packets" class="packet-card">
+      <!-- Eğer resim varsa, göster -->
+    <div *ngIf="packet.imageUrl">
+      <img [src]="packet.imageUrl" alt="{{ packet.name }}" />
     </div>
-  </div>
+    <!-- Eğer resim yoksa, placeholder göster -->
+    <div *ngIf="!packet.imageUrl">
+      <p>No image available</p>
+    </div>
+    <h3>{{ packet.name }}</h3>
+    <p><strong>Price:</strong> {{ packet.price }}₺</p>
+    <p><strong>Description:</strong> {{ packet.description }}</p>
+    <p><strong>Quantity:</strong> {{ packet.quantity }}</p>
   
+  </div>
+</div>
