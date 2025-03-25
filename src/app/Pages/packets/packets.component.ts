@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product, ProductService } from '../../services/product-service.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-packets',
@@ -13,10 +14,9 @@ export class PacketsComponent implements OnInit {
 
   packets: Product[] = [];  // Ürünleri tutacağımız dizi
 
-  constructor(private packetService: ProductService) { }
+  constructor(private packetService: ProductService,  private cartService: CartService) { }
 
   ngOnInit(): void {
-    debugger
     this.packetService.getProducts().subscribe((data: Product[]) => {
       this.packets = data;  // Veriyi component'te tutuyoruz
     });
@@ -32,10 +32,8 @@ export class PacketsComponent implements OnInit {
       packet.Quantity--;
     }
   }
-
-  addToCart(packet: Product) {
-    console.log(`${packet.Name} sepete eklendi!`);
-    // Sepet ekleme işlemleri burada yapılabilir
+  addToCart(packet: any) {
+    this.cartService.addToCart(packet);
   }
   
 }

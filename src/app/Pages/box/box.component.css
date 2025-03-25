@@ -1,0 +1,44 @@
+.cart-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .cart-item:hover {
+    transform: scale(1.02);
+  }
+
+  .cart-item .card-body {
+    padding: 15px;
+  }
+
+  .cart-item img {
+    max-height: 250px;
+    width: 250px;
+    object-fit: cover;
+  }
+
+  .btn-outline-secondary {
+    font-size: 18px;
+    padding: 5px 15px;
+  }
+
+  .btn-danger {
+    padding: 8px 16px;
+  }
+
+  .text-end h4 {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .alert {
+    font-size: 1.1rem;
+  }
