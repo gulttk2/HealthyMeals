@@ -4,11 +4,12 @@ import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { ProductService } from './app/services/product-service.service';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-
+    ProductService 
 
   ]
 }).catch(err => console.error(err));

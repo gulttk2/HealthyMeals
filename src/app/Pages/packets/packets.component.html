@@ -1,17 +1,24 @@
 <div class="packet-container">
   <div *ngFor="let packet of packets" class="packet-card">
       <!-- Eğer resim varsa, göster -->
-    <div *ngIf="packet.imageUrl">
-      <img [src]="packet.imageUrl" alt="{{ packet.name }}" />
+    <div *ngIf="packet.ImageUrl">
+      <img [src]="packet.ImageUrl" alt="{{ packet.Name }}" />
     </div>
     <!-- Eğer resim yoksa, placeholder göster -->
-    <div *ngIf="!packet.imageUrl">
+    <div *ngIf="!packet.ImageUrl">
       <p>No image available</p>
     </div>
-    <h3>{{ packet.name }}</h3>
-    <p><strong>Price:</strong> {{ packet.price }}₺</p>
-    <p><strong>Description:</strong> {{ packet.description }}</p>
-    <p><strong>Quantity:</strong> {{ packet.quantity }}</p>
+    <h3>{{ packet.Name }}</h3>
+    <p><strong>Price:</strong> {{ packet.Price }}₺</p>
+    <p><strong>Description:</strong> {{ packet.Description }}</p>
+    <p><strong>Quantity:</strong> {{ packet.Quantity }}</p>
   
+    <div class="quantity-control">
+      <button (click)="decreaseQuantity(packet)" class="quantity-button decrease">-</button>
+      <span class="quantity-display">{{ packet.Quantity }}</span>
+      <button (click)="increaseQuantity(packet)" class="quantity-button increase">+</button>
+    </div>
+
+    <button (click)="addToCart(packet)" class="add-to-cart-btn">Sepete Ekle</button>
   </div>
 </div>

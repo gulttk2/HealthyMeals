@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 
 // Ürün arayüzü
 export interface Product {
-  id: number;
-  name: string;
-  price: string;
-  quantity: number;
-  shortDescription: string;
-  imageUrl: string;  // imageUrl ismiyle uyumlu olacak
-  description: string;
+  ID: number; // id yerine ID
+  Name: string; // name yerine Name
+  Price: string;
+  Quantity: number;
+  Description: string;
+  ImageUrl: string; // imageUrl yerine ImageUrl
 }
 
 @Injectable({
