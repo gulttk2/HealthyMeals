@@ -1,16 +1,12 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-  ],
+  imports:[CommonModule,FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -19,11 +15,15 @@ export class LoginComponent implements AfterViewInit {
   @ViewChild('signUp', { static: false }) signUpButton!: ElementRef;
   @ViewChild('signIn', { static: false }) signInButton!: ElementRef;
 
-  signUpEmail: string = '';
-  signUpPassword: string = '';
-  confirmPassword: string = '';
-  signInEmail: string = '';
-  signInPassword: string = '';
+  signUpName = '';
+  signUpSurname = '';
+  signUpPhoneNumber = '';
+  signUpAddress = '';
+  signUpEmail = '';
+  signUpPassword = '';
+  confirmPassword = '';
+  signInEmail = '';
+  signInPassword = '';
 
   constructor(private authService: AuthenticationService, private router: Router) {}
 
@@ -41,7 +41,6 @@ export class LoginComponent implements AfterViewInit {
       }
     }, 200);
 
-    // Buton eventlerini ViewChild ile ekliyoruz
     if (this.signUpButton && this.signInButton && this.container) {
       this.signUpButton.nativeElement.addEventListener('click', () => {
         this.container.nativeElement.classList.add('right-panel-active');
@@ -55,30 +54,46 @@ export class LoginComponent implements AfterViewInit {
 
   register() {
     if (this.signUpPassword !== this.confirmPassword) {
-      alert('Passwords do not match');
+      alert('Şifreler uyuşmuyor.');
       return;
     }
-    this.authService.register(this.signUpEmail, this.signUpPassword).subscribe(
+
+    const registerData = {
+      Name: this.signUpName,
+      Surname: this.signUpSurname,
+      PhoneNumber: this.signUpPhoneNumber,
+      Address: this.signUpAddress,
+      Email: this.signUpEmail,
+      Password: this.signUpPassword
+    };
+
+    this.authService.register(registerData).subscribe(
       response => {
-        console.log('Registration successful', response);
+        console.log('Kayıt başarılı', response);
         this.toggle();
       },
       error => {
-        console.error('Registration error', error);
+        console.error('Kayıt hatası', error);
+        alert('Kayıt işlemi sırasında bir hata oluştu.');
       }
     );
   }
 
   login() {
-    this.authService.login(this.signInEmail, this.signInPassword).subscribe(
+    const loginData = {
+      Email: this.signInEmail,
+      Password: this.signInPassword
+    };
+
+    this.authService.login(loginData.Email, loginData.Password).subscribe(
       response => {
         if (response.token) {
-          console.log('Login successful', response);
+          console.log('Giriş başarılı', response);
           this.router.navigate(['/home']);
         }
       },
       error => {
-        console.error('Login error', error);
+        console.error('Giriş hatası', error);
       }
     );
   }

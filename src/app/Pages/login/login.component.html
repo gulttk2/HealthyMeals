@@ -1,36 +1,46 @@
 <div class="container-wrapper">
     <div #container class="container">
-        <div class="form-container sign-up-container">
-            <form (ngSubmit)="register()">
-                <h1>Hesap oluştur</h1><br>
-                <input type="email" placeholder="Email" [(ngModel)]="signUpEmail" name="signUpEmail" required />
-                <input type="password" placeholder="Şifre" [(ngModel)]="signUpPassword" name="signUpPassword" required />
-                <input type="password" placeholder="Şifre Tekrar" [(ngModel)]="confirmPassword" name="confirmPassword" required />
-                <button type="submit">Hesap oluştur</button>
-            </form>
+      <!-- Kayıt Formu -->
+      <div class="form-container sign-up-container">
+        <form (ngSubmit)="register()">
+          <h1>Hesap oluştur</h1><br>
+          <input type="text" placeholder="Adınız" [(ngModel)]="signUpName" name="name" required />
+          <input type="text" placeholder="Soyadınız" [(ngModel)]="signUpSurname" name="surname" required />
+          <input type="text" placeholder="Telefon" [(ngModel)]="signUpPhoneNumber" name="phone" required />
+          <input type="text" placeholder="Address" [(ngModel)]="signUpAddress" name="address" required />
+          <input type="email" placeholder="Email" [(ngModel)]="signUpEmail" name="email" required />
+          <input type="password" placeholder="Şifre" [(ngModel)]="signUpPassword" name="password" required />
+          <input type="password" placeholder="Şifre Tekrar" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+          <button type="submit">Hesap oluştur</button>
+        </form>
+      </div>
+  
+      <!-- Giriş Formu -->
+      <div class="form-container sign-in-container">
+        <form (ngSubmit)="login()">
+          <h1>Giriş yap</h1><br>
+          <input type="email" placeholder="Email" [(ngModel)]="signInEmail" name="signInEmail" required />
+          <input type="password" placeholder="Şifre" [(ngModel)]="signInPassword" name="signInPassword" required />
+          <a href="#">Şifreni mi unuttun?</a>
+          <button type="submit">Giriş yap</button>
+        </form>
+      </div>
+  
+      <!-- Overlay Container -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Hoşgeldin!</h1>
+            <p>Bizimle bağlantıda kalmak için lütfen kişisel bilgilerinizle giriş yapın</p>
+            <button type="button" class="ghost" #signIn>Giriş yap</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Merhaba!</h1>
+            <p>Kişisel bilgilerinizi girin ve bizimle yolculuğunuza başlayın</p>
+            <button type="button" class="ghost" #signUp>Kayıt ol</button>
+          </div>
         </div>
-        <div class="form-container sign-in-container">
-            <form (ngSubmit)="login()">
-                <h1>Giriş yap</h1><br>
-                <input type="email" placeholder="Email" [(ngModel)]="signInEmail" name="signInEmail" required />
-                <input type="password" placeholder="Şifre" [(ngModel)]="signInPassword" name="signInPassword" required />
-                <a href="#">Şifreni mi unuttun?</a>
-                <button type="submit">Giriş yap</button>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Hoşgeldin!</h1>
-                    <p>Bizimle bağlantıda kalmak için lütfen kişisel bilgilerinizle giriş yapın</p>
-                    <button type="button" class="ghost" #signIn>Giriş yap</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Merhaba!</h1>
-                    <p>Kişisel bilgilerinizi girin ve bizimle yolculuğunuza başlayın</p>
-                    <button type="button" class="ghost" #signUp>Kayıt ol</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

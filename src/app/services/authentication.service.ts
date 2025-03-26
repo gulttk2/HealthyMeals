@@ -1,52 +1,60 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError, map, Observable, throwError } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
   private apiUrl = 'https://localhost:7056/api/Authentication';
 
   constructor(private http: HttpClient) {}
 
   // Login işlemi
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+  login(Email: string, Password: string): Observable<any> {
+    const loginData = { Email, Password };
+  
+    if (!loginData.Email || !loginData.Password) {
+      return throwError('Email ve şifre gereklidir.');
+    }
+  
+    return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       map(response => {
         if (response.token) {
-          // Token'i sessionStorage'da saklayın
-          sessionStorage.setItem('token', response.token);  // Daha güvenli
+          localStorage.setItem('token', response.token);
         }
         return response;
       }),
       catchError(error => {
         console.error('Login error:', error);
-        return throwError('Giriş işlemi sırasında bir hata oluştu.');
+        return throwError('Giriş işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.');
       })
     );
   }
-
+  
   // Register işlemi
-  register(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, {email, password }).pipe(
+  register(registerData: { Name: string, Surname: string, PhoneNumber: string, Address: string, Email: string, Password: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, registerData).pipe(
       catchError(error => {
-        console.error('Registration error:', error);
-        return throwError('Kayıt işlemi sırasında bir hata oluştu.');
+        console.error('Register error:', error);
+        return throwError('Kayıt işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.');
       })
     );
   }
 
   // Kullanıcıyı çıkış yap
   logout(): void {
-    sessionStorage.removeItem('token');  // Token'i sessionStorage'dan sil
+    localStorage.removeItem('token');
   }
 
   // Token al
   getToken(): string | null {
-    return sessionStorage.getItem('token');  // sessionStorage'dan token al
+    return localStorage.getItem('token');
   }
 
   // Kullanıcı oturum açmış mı?
   isAuthenticated(): boolean {
-    return !!this.getToken();  // Token var mı diye kontrol eder
+    return !!this.getToken();
   }
 }
