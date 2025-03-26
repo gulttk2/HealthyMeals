@@ -12,23 +12,22 @@ import { CartService } from '../../services/cart.service';
 })
 export class PacketsComponent implements OnInit {
 
-  packets: Product[] = [];  // Ürünleri tutacağımız dizi
-
+  packets: Product[] = [];  
   constructor(private packetService: ProductService,  private cartService: CartService) { }
 
   ngOnInit(): void {
     this.packetService.getProducts().subscribe((data: Product[]) => {
-      this.packets = data;  // Veriyi component'te tutuyoruz
+      this.packets = data; 
     });
   }
   increaseQuantity(packet: Product) {
-    if (packet.Quantity < 3) {  // Maksimum miktar sınırı
+    if (packet.Quantity < 3) {  
       packet.Quantity++;
     }
   }
 
   decreaseQuantity(packet: Product) {
-    if (packet.Quantity > 0) {  // Minimum miktar sınırı
+    if (packet.Quantity > 0) {  
       packet.Quantity--;
     }
   }

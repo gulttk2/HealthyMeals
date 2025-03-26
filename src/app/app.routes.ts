@@ -13,5 +13,5 @@ export const routes: Routes = [
     {path:"contact",component:ContactComponent},
     {path:"login", component:LoginComponent},
     {path:"find", component:FindComponent},
-    {path:"box",component:BoxComponent}
+    {path:"box",component:BoxComponent},
 ];

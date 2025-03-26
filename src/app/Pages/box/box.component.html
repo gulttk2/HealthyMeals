@@ -30,7 +30,6 @@
                   <i class="bi bi-plus-lg"></i>
                 </button>
               </div>
-  
               <!-- Sepetten Çıkarma Butonu -->
               <button class="btn btn-danger" (click)="removeFromCart(item)">
                 <i class="bi bi-trash"></i>
@@ -40,12 +39,22 @@
         </div>
       </div>
     </div>
-  
+
     <!-- Toplam Fiyat -->
     <div *ngIf="cartItems.length > 0" class="text-end">
       <h4 class="text-primary">Toplam Fiyat: {{ getTotalPrice() | currency:'₺' }}</h4>
     </div>
-  </div>
+    </div>
+
+    <!-- İndirim Kodu Giriş Alanı -->
+    <div *ngIf="cartItems.length > 0" class="discount-section text-center mt-4">
+      <div class="card p-4 shadow-sm">
+        <h5 class="text-dark mb-3">İndirim Kodu Kullan</h5>
+        <div class="input-group w-50 mx-auto">
+          <input type="text" class="form-control" [(ngModel)]="discountCode" placeholder="İndirim kodunu girin">
+          <button class="btn btn-success" (click)="applyDiscount()">Uygula</button>
+    </div>
+
   
   <!-- Onayla Butonu -->
   <div *ngIf="cartItems.length > 0" class="text-center mt-4">
