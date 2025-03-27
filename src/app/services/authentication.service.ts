@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,19 @@ export class AuthenticationService {
   
     return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       map(response => {
+        debugger
         if (response.token) {
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('token', response.token);  // Token'ı kaydet
+          // Kullanıcının rolünü almak
+          const role = this.getUserRole();
+          if (role === 'Admin') {
+            debugger
+            // Admin rolüyle yönlendirme
+            return { role, token: response.token };
+          } else {
+            // Diğer kullanıcılar için home sayfası yönlendirmesi
+            return { role, token: response.token };
+          }
         }
         return response;
       }),
@@ -57,4 +69,24 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
+
+
+  getUserRole(): string | null {
+    debugger
+    const token = this.getToken();
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        console.log(decodedToken); // decodedToken'ı konsola yazdır
+
+        // 'role' bilgisi burada farklı bir adla yer alıyor
+        return decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
+      } catch (e) {
+        console.error('Token çözülürken hata oluştu:', e);
+        return null;
+      }
+    }
+    return null;
+  }
+
 }

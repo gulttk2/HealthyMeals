@@ -89,12 +89,18 @@ export class LoginComponent implements AfterViewInit {
       response => {
         if (response.token) {
           console.log('Giriş başarılı', response);
+          
+        const role = this.authService.getUserRole();
+        if (role === "Admin") {
+          this.router.navigate(['/admin']);
+        } else {
           this.router.navigate(['/home']);
         }
-      },
-      error => {
-        console.error('Giriş hatası', error);
       }
-    );
-  }
+    },
+    error => {
+      console.error('Giriş hatası', error);
+    }
+  );
+}
 }

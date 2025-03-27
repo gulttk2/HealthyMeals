@@ -10,8 +10,8 @@ import { AdminPanelComponent } from './Panel/admin-panel/admin-panel.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
+
     {path:'', redirectTo:'home',pathMatch:'full'},
-    { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },  // Admin rolü için koruma
     {path:"home", component:HomeComponent },
     {path:"packets",component:PacketsComponent},
     {path:"contact",component:ContactComponent},
@@ -19,6 +19,7 @@ export const routes: Routes = [
     {path:"find", component:FindComponent},
     {path:"box",component:BoxComponent},
     {path:"profile",component:ProfileComponent},
+    { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },  
     {path:"adminProduct",component:AdminPanelComponent},
     {path:"adminCustomer",component:AdminPanelComponent},
     {path:"adminOrder",component:AdminPanelComponent},
