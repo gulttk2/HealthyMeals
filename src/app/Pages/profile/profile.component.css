@@ -1,0 +1,9 @@
+.edit-icon {
+    cursor: pointer;
+    color: #007bff;
+    margin-left: 10px;
+  }
+  .edit-icon:hover {
+    text-decoration: underline;
+  }
+  

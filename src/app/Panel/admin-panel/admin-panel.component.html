@@ -1,0 +1,94 @@
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right sidebar" id="sidebar-wrapper">
+        <div class="sidebar-heading text-center py-4 text-white bg-dark">Admin Panel</div>
+        <div class="list-group list-group-flush">
+            <a href="#admin" class="list-group-item list-group-item-action bg-dark">Dashboard</a>
+            <a href="#adminProduct" class="list-group-item list-group-item-action bg-dark">Ürünler</a>
+            <a href="#adminCustomer" class="list-group-item list-group-item-action bg-dark">Müşteriler</a>
+            <a href="#adminDiscount" class="list-group-item list-group-item-action bg-dark">İndirimler</a>
+            <a href="#adminOrder" class="list-group-item list-group-item-action bg-dark">Siparişler</a>
+            <a href="#adminStatistics" class="list-group-item list-group-item-action bg-dark">İstatistikler</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="main-content">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Admin Panel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <button class="nav-link active" (click)="logout()">Çıkış Yap</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+<br><br>
+        <!-- Dashboard Content -->
+        <div class="container">
+            <div class="row">
+                <!-- Ürünler Kartı -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Ürünler</h5>
+                            <p class="card-text">Ürünleri yönetin ve listeleyin.</p>
+                            <button class="btn btn-primary" (click)="redirect('/packets')">Git</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Müşteriler Kartı -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Müşteriler</h5>
+                            <p class="card-text">Müşteri bilgilerini yönetin.</p>
+                            <button class="btn btn-primary" (click)="redirect('/adminCustomer')">Git</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- İndirimler Kartı -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">İndirimler</h5>
+                            <p class="card-text">Mevcut indirimleri yönet.</p>
+                            <button class="btn btn-primary" (click)="redirect('/adminDiscount')">Git</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Siparişler Kartı -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Siparişler</h5><br>
+                            <p class="card-text">Siparişleri takip et.</p>
+                            <a href="#" class="btn btn-primary">Git</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İstatistikler Kartı -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">İstatistikler</h5>
+                            <p class="card-text">Satışlar, ürünler ve daha fazlası hakkında grafikler ve raporlar.</p>
+                            <button class="btn btn-primary" (click)="redirect('/adminStatistics')">Git</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

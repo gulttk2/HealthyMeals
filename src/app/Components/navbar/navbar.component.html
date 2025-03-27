@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
@@ -8,12 +7,10 @@
             <i class="fa-solid fa-utensils"></i> Healthy Meals
         </button>
         
-  
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <button class="nav-link btn btn-link" (click)="redirect('')">Anasayfa</button>
@@ -22,11 +19,30 @@
             </div>
         </div>
 
-        
         <div class="d-flex">
-            <button class="icon-link btn btn-link me-3" (click)="redirect('find')"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <button class="icon-link btn btn-link me-3" (click)="redirect('box')"><i class="fa-solid fa-cart-shopping"></i></button>
-            <button class="icon-link btn btn-link" (click)="redirect('login')"><i class="fa-solid fa-user"></i></button>
+            <button class="icon-link btn btn-link me-3" (click)="redirect('find')">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="icon-link btn btn-link me-3" (click)="redirect('box')">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+
+            <!-- Kullanıcı giriş yaptıysa profil ve çıkış butonları göster -->
+            <ng-container *ngIf="isAuthenticated(); else guest">
+                <button class="icon-link btn btn-link me-3" (click)="redirect('profile')">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button class="icon-link btn btn-link text-danger" (click)="logout()">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                </button>
+            </ng-container>
+
+            <!-- Kullanıcı giriş yapmadıysa giriş butonu göster -->
+            <ng-template #guest>
+                <button class="icon-link btn btn-link" (click)="redirect('login')">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+            </ng-template>
         </div>
     </div>
 </nav>
