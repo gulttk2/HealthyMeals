@@ -1,14 +1,25 @@
+// app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, Event, NavigationEnd, RouterModule } from '@angular/router';
 import { NavbarComponent } from "./Components/navbar/navbar.component";
-import { ContactComponent } from './Pages/contact/contact.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [NavbarComponent,RouterModule,CommonModule]
 })
 export class AppComponent {
-  title = 'HealthyMeals';
+  showNavbar = true;
+
+  constructor(private router: Router) {
+    // Angular'ın router events'ini dinleyerek navbar'ın görünürlüğünü kontrol et
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+      debugger
+        this.showNavbar = !event.url.includes('/admin');
+      }
+    });
+  }
 }
