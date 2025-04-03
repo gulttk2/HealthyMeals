@@ -24,13 +24,15 @@ export class AuthenticationService {
       map(response => {
         debugger
         if (response.token) {
-          localStorage.setItem('token', response.token);  
+          localStorage.setItem('token', response.token);  // Token'ı kaydet
+          // Kullanıcının rolünü almak
           const role = this.getUserRole();
           if (role === 'Admin') {
             debugger
-
+            // Admin rolüyle yönlendirme
             return { role, token: response.token };
           } else {
+            // Diğer kullanıcılar için home sayfası yönlendirmesi
             return { role, token: response.token };
           }
         }
@@ -43,6 +45,7 @@ export class AuthenticationService {
     );
   }
   
+  // Register işlemi
   register(registerData: { Name: string, Surname: string, PhoneNumber: string, Address: string, Email: string, Password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register`, registerData).pipe(
       catchError(error => {
@@ -52,14 +55,17 @@ export class AuthenticationService {
     );
   }
 
+  // Kullanıcıyı çıkış yap
   logout(): void {
     localStorage.removeItem('token');
   }
 
+  // Token al
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
+  // Kullanıcı oturum açmış mı?
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -71,8 +77,9 @@ export class AuthenticationService {
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
-        console.log(decodedToken); 
+        console.log(decodedToken); // decodedToken'ı konsola yazdır
 
+        // 'role' bilgisi burada farklı bir adla yer alıyor
         return decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
       } catch (e) {
         console.error('Token çözülürken hata oluştu:', e);
