@@ -84,23 +84,39 @@ export class LoginComponent implements AfterViewInit {
       Email: this.signInEmail,
       Password: this.signInPassword
     };
-
+  
     this.authService.login(loginData.Email, loginData.Password).subscribe(
       response => {
         if (response.token) {
           console.log('Giriş başarılı', response);
-          
-        const role = this.authService.getUserRole();
-        if (role === "Admin") {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/home']);
+  
+          // Token'ı localStorage'a kaydediyoruz
+          localStorage.setItem('token', response.token);
+  
+          // Token'dan userId'yi alıyoruz ve kaydediyoruz
+          const userId = this.authService.getUserId();
+          if (userId) {
+            localStorage.setItem('userId', userId);  // User ID'yi kaydet
+          }
+  
+          const role = this.authService.getUserRole();
+          if (role === 'Admin') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/profile']);
+          }
         }
+      },
+      error => {
+        console.error('Giriş hatası', error);
       }
-    },
-    error => {
-      console.error('Giriş hatası', error);
-    }
-  );
-}
+    );
+  }
+  
+
+
+
+
+
+
 }

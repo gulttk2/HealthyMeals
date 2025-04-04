@@ -1,1 +1,137 @@
-<p>profile works!</p>
+<div class="cards-container">
+  <div *ngIf="customer" class="customer-info">
+    <h2>
+      <i class="fa-solid fa-user"></i>
+      {{ customer.Name }} {{customer.Surname}}
+    </h2>
+    <p>
+      <i class="fa-solid fa-mail-bulk"></i>
+      {{customer.Email}}</p>
+    <p>
+      <i class="fa-solid fa-phone"></i>
+      {{customer.PhoneNumber}}</p>
+    <p>
+      <i class="fa-solid fa-address-book"></i>
+      {{customer.Address}}</p>
+  </div>
+    <div class="container">
+     
+      <div class="row">
+        <div class="col md-2">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Bilgilerinizi güncelleyin</h5>
+              <p class="card-text">Profil bilgilerinizi günceller.</p><br>
+              <button class="btn btn-primary" (click)="editCustomer(customer, content)">Düzenle</button>
+            </div>
+          </div>
+        </div>
+        <br>
+    
+        <div class="col md-2">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">İndirim Kuponlarım</h5>
+              <p class="card-text">İndirim kuponlarını listeleyin.</p><br>
+              <button class="btn btn-primary" (click)="getCoupons()">Git</button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col md-2">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Aktif Siparişlerim</h5>
+              <p class="card-text">Sipariş bilgilerinizi listeleyin.</p><br>
+              <button class="btn btn-primary" (click)="getOrders()">Git</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{ isAddingNew ? '' : 'Bilgileri Düzenle' }}</h5>
+      <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveCustomer()" #productForm="ngForm">
+        <div class="mb-3">
+          <label for="cutomerName" class="form-label">Ad</label>
+          <input type="text" id="cutomerName" class="form-control" [(ngModel)]="customer.Name" name="Name" required>
+        </div>
+        <div class="mb-3">
+          <label for="cutomerSurname" class="form-label">Soyad</label>
+          <input type="text" id="cutomerSurname" class="form-control" [(ngModel)]="customer.Surname" name="Surname" required>
+        </div>
+        <div class="mb-3">
+          <label for="cutomerAddress" class="form-label">Adres</label>
+          <input type="text" id="cutomerAddress" class="form-control" [(ngModel)]="customer.Address" name="Address" required>
+        </div>
+        <div class="mb-3">
+          <label for="customerPhone" class="form-label">Telefon</label>
+          <input type="text" id="customerPhone" class="form-control" [(ngModel)]="customer.PhoneNumber" name="PhoneNumber">
+        </div>
+        <div class="mb-3">
+          <label for="cutomerEmail" class="form-label">Email</label>
+          <input type="email" id="cutomerEmail" class="form-control" [(ngModel)]="customer.Email" name="Email">
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Kapat</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">{{ isAddingNew ? '' : 'Kaydet' }}</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+
+  <div *ngIf="discounts.length > 0" class="overlay">
+    <div class="coupon-card-container">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Kuponlarınız</h5>
+          <ul>
+            <li *ngFor="let discount of discounts">{{ discount.Name }}</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="closeCoupons()">Kapat</button>
+      </div>
+    </div>
+  </div>
+<!-- 
+  <div *ngIf="orders.length > 0" class="overlay">
+    <div class="coupon-card-container">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Siparişleriniz</h5>
+          <ul>
+            <li *ngFor="let order of orders">
+             Paket Adı: {{ order.ProductName}} -  Fiyat: {{ order.TotalPrice }}₺
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="closeOrders()">Kapat</button>
+      </div>
+    </div>
+  </div> -->
+  
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Aktif siparişler</h2>
+    <div *ngFor="let order of orders" class="cart-item card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img *ngIf="order.ProductImage" [src]="order.ProductImage" alt="{{ order.ProductName }}" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ order.ProductName }}</h5>
+            <p class="card-text">{{ order.ProductDescription }}</p>
+            <p class="card-text">Fiyat: <span class="text-muted">{{ order.TotalPrice }}₺</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

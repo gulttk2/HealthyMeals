@@ -4,6 +4,7 @@ import { DiscountService, Discount } from '../../services/discount.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-box',
@@ -17,7 +18,7 @@ export class BoxComponent implements OnInit {
   discountAmount: number = 0;
   validDiscountCodes: { [key: string]: number } = {}; // İndirim miktarları TL olarak
 
-  constructor(private cartService: CartService, private discountService: DiscountService, private router:Router) {}
+  constructor(private http: HttpClient,private cartService: CartService, private discountService: DiscountService, private router:Router) {}
 
   ngOnInit() {
     this.cartService.getCartItems().subscribe(items => {
@@ -52,25 +53,37 @@ export class BoxComponent implements OnInit {
     return totalPrice - this.discountAmount;  // İndirimli fiyatı hesapla
   }
 
-  // Onayla butonuna tıklandığında yapılacak işlem
   onCheckout() {
     if (this.cartItems.length > 0) {
       console.log('Ödeme işlemi başlatılıyor!');
-
-      // // Kullanıcı oturumu açmış mı diye kontrol et
-      // const isLoggedIn = localStorage.getItem('isLoggedIn'); // veya sessionStorage kullanabilirsiniz
-      // if (isLoggedIn === 'true') {
-      //   // Giriş yapmışsa ödeme sayfasına yönlendir
-      //   this.router.navigate(['/payment']);
-      // } else {
-      //   // Giriş yapmamışsa login sayfasına yönlendir
-      //   this.router.navigate(['/login']);
-      // }
+  
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        console.log('Kullanıcı giriş yapmamış!');
+        return;
+      }
+  
+      const orderData = this.cartItems.map(item => ({
+        customerID: userId, // Burada customerID olarak userId kullanıyoruz
+        productID: item.id,
+        quantity: item.quantity,
+        totalPrice: item.totalPrice
+      }));
+  
+      this.http.post('https://localhost:7056/api/Order/AddOrder', orderData).subscribe(
+        response => {
+          console.log('Sipariş başarıyla oluşturuldu!', response);
+          this.router.navigate(['/payment']); // Ödeme sayfasına yönlendir
+        },
+        error => {
+          console.error('Sipariş oluşturulurken hata oluştu!', error);
+        }
+      );
     } else {
       console.log('Sepet boş, ödeme işlemi başlatılamaz!');
     }
   }
-
+  
   applyDiscount() {
     // Geçerli indirim kodu olup olmadığını kontrol et
     if (this.validDiscountCodes[this.discountCode]) {
@@ -80,4 +93,7 @@ export class BoxComponent implements OnInit {
       alert('Geçersiz indirim kodu!');
     }
   }
+
+
+  
 }

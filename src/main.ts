@@ -5,11 +5,12 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { ProductService } from './app/services/product-service.service';
+import { ProfileService } from './app/services/profile.service';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    ProductService 
-
+    ProductService,
+    ProfileService  
   ]
 }).catch(err => console.error(err));

@@ -19,11 +19,6 @@ export const routes: Routes = [
     {path:"find", component:FindComponent},
     {path:"box",component:BoxComponent},
     {path:"profile",component:ProfileComponent},
-    { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },  
-    {path:"adminProduct",component:AdminPanelComponent},
-    {path:"adminCustomer",component:AdminPanelComponent},
-    {path:"adminOrder",component:AdminPanelComponent},
-    {path:"adminStatistics",component:AdminPanelComponent},
-
+    {path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },  
 
 ];
